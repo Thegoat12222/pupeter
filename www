@@ -1,0 +1,23 @@
+
+
+  const puppeteer = require('puppeteer');
+(async () => {
+  const browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  const page = await browser.newPage();
+
+  const navigationPromise = page.waitForNavigation()
+  
+  await page.goto('https://www.bestbuy.ca/en-ca/search?search=gloves')
+  
+  await page.setViewport({ width: 1536, height: 714 })
+  
+  await navigationPromise
+  
+  await page.waitForSelector('.col-xs-12_198le:nth-child(3) > div > .link_3hcyN > .listItem_10CIq > .productItemRow_hyNOs > .col-xs-8_1v0z0 > .productItemName_3IZ3c')
+  await page.click('.col-xs-12_198le:nth-child(3) > div > .link_3hcyN > .listItem_10CIq > .productItemRow_hyNOs > .col-xs-8_1v0z0 > .productItemName_3IZ3c')
+  
+  await page.waitForSelector('.addToCartContainer_20u-G > #test > .button_E6SE9 > .content_3Dbgg > .addToCartLabel_YZaVX')
+  await page.click('.addToCartContainer_20u-G > #test > .button_E6SE9 > .content_3Dbgg > .addToCartLabel_YZaVX')
+  
+  await browser.close()
+})()
